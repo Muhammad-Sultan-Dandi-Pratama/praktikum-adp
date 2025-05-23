@@ -22,6 +22,3 @@ while True:
         break
     elif n<='0':
         print("masukan angka lebih dari 0")
-
-print()
-print("====== Terimakasih ======")
