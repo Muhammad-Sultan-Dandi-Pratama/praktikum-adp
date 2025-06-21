@@ -96,13 +96,6 @@ def saran_kesehatan(jenis, hasil):
             add(text,"dokter spesialis","yellow")
             add(text," untuk penanganan intensif.")
             return console.print(text, width=80)
-    elif jenis == "Kalori":
-        return "Pastikan kebutuhan kalori sesuai aktivitas harian Anda."
-    elif jenis == "BMR":
-        return "Gunakan BMR untuk mengatur pola makan yang tepat."
-    elif jenis == "Body Fat":
-        return "Persentase lemak tubuh penting untuk kesehatan jantung dan metabolisme."
-    return "Jaga selalu gaya hidup sehat!"
 
 # Fungsi menyimpan ke file .txt
 def simpan_riwayat_kalori(data):
