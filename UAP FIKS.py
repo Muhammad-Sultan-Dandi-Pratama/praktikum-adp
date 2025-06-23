@@ -1,15 +1,14 @@
 import time
 import os
-from termcolor import colored, cprint
 from rich.console import Console
 from rich.table import Table
 from rich.text import Text
 from rich.prompt import Prompt, IntPrompt, FloatPrompt
 from rich.panel import Panel
 from rich import print
-
 console = Console()
-# fungsi append kata kata berwarna
+
+# Fungsi nambahin kaata berwarna
 def add(text_obj, content="",  style=None, newline=False, blank_line=False):
     text_obj.append(content, style)
     if newline:
@@ -24,7 +23,7 @@ def loading(teks="Memproses"):
         time.sleep(0.5)
     print(" " * 20, end='\r')
 
-# Fungsi saran kesehatan
+# Fungsi saran kesehatan BMI
 def saran_kesehatan(jenis, hasil):
     if jenis == "BMI":
         if hasil < 16:
@@ -106,11 +105,8 @@ def simpan_riwayat_kalori(data):
 def simpan_riwayat_bmi(jenis, hasil):
     with open("Riwayat_BMI.txt", "a") as file:
         file.write(f"{jenis}: {hasil:.2f}\n")
-# 
-# Fungsi-fungsi kalkulasi
-#
 
-##### KALKULATOR BMI ✅
+##### KALKULATOR BMI 
 def pengenalan_bmi():
     console.rule("[bold cyan]📘 Pengenalan Tentang BMI")
 
@@ -141,7 +137,7 @@ def pengenalan_bmi():
 
     # Tabel klasifikasi
     console.print("\n[bold]Berikut adalah klasifikasi [cyan]BMI[/cyan] berdasarkan [italic blue]World Health Organization (WHO)[/italic blue]:\n")
-    table = Table(title="Klasifikasi BMI - Dewasa", header_style="bold magenta")
+    table = Table(title="Klasifikasi BMI", header_style="bold magenta")
     table.add_column("Klasifikasi", style="yellow")
     table.add_column("Kisaran BMI - kg/m²", style="green")
 
@@ -149,7 +145,7 @@ def pengenalan_bmi():
         ["Kekurusan Parah", "< 16"],
         ["Kekurusan Sedang", "16 - 17"],
         ["Kekurusan Ringan", "17 - 18.5"],
-        ["Normal", "18.5 - 25"],
+        ["Ideal", "18.5 - 25"],
         ["Kegemukan", "25 - 30"],
         ["Obesitas Kelas I", "30 - 35"],
         ["Obesitas Kelas II", "35 - 40"],
@@ -168,8 +164,6 @@ def hitung_bmi():
     bmi = berat / (tinggi ** 2)
 
     loading("Menghitung BMI...")
-
-    # Tentukan kategori + warna
     if bmi < 16:
         kategori = "Kekurusan Parah"
         warna = "red"
@@ -195,7 +189,7 @@ def hitung_bmi():
         kategori = "Obesitas Kelas III"
         warna = "bold red"
 
-    # Tampilkan hasil dengan rich table
+    # Tabel hasil
     console.print("\n[bold cyan]✅ Hasil BMI Anda:[/bold cyan]\n")
     table = Table(show_header=False)
     table.add_row("Berat Badan", f"{berat:.1f} kg")
@@ -204,16 +198,12 @@ def hitung_bmi():
     table.add_row("Kategori", f"[{warna}]{kategori}[/{warna}]")
     console.print(table)
 
-    # Tampilkan saran kesehatan
     print("💡", end=" ")
     saran_kesehatan("BMI", bmi)
-
-    # Simpan riwayat
     simpan_riwayat_bmi("BMI", bmi)
 def risiko_kelebihan_berat_badan():
     console.rule("[bold red]⚠️ Risiko Kelebihan Berat Badan")
-
-    # Paragraf pengantar
+    # Pengantar
     wal = Text()
     wal.append("KELEBIHAN BERAT BADAN", style="bold red")
     wal.append(" dapat meningkatkan risiko berbagai penyakit dan masalah kesehatan serius.\n")
@@ -222,7 +212,7 @@ def risiko_kelebihan_berat_badan():
     wal.append(":\n")
     console.print(Panel(wal, title="📌 Pengantar", expand=False, border_style="red"))
 
-    # Daftar risiko sebagai tabel
+    # Tabel risiko
     table = Table(title="Risiko Kesehatan Akibat Kelebihan Berat Badan", header_style="bold magenta")
     table.add_column("No.", justify="center", style="cyan", width=5)
     table.add_column("Risiko", style="red")
@@ -248,7 +238,7 @@ def risiko_kelebihan_berat_badan():
 
     console.print(table)
 
-    # Penutup
+    # Anjuran
     kir = Text()
     kir.append("Kelebihan berat badan dapat menimbulkan ")
     kir.append("dampak negatif", style="red")
@@ -267,16 +257,15 @@ def risiko_kelebihan_berat_badan():
     console.rule("[bold green]Selesai")
 def risiko_kekurangan_berat_badan():
     console.rule("[bold red]⚠️ Risiko Kekurangan Berat Badan")
-
-    # Paragraf pengantar
+    # pengantar
     wal = Text()
     wal.append("KEKURANGAN BERAT BADAN", style="bold red")
     wal.append(" dapat menimbulkan sejumlah risiko kesehatan yang serius, tidak kalah berbahaya dibandingkan kegemukan.\n")
     wal.append("Berikut ini adalah beberapa risiko yang perlu diketahui:\n")
     console.print(Panel(wal, title="📌 Pengantar", expand=False, border_style="red"))
 
-    # Tampilkan risiko sebagai tabel berwarna
-    table = Table(title="Dampak Negatif dari Kekurangan Berat Badan", header_style="bold magenta")
+    # tabel risiko
+    table = Table(title="Risiko Kesehatan Akibat Kekurangan Berat Badan", header_style="bold magenta")
     table.add_column("No.", justify="center", style="cyan", width=5)
     table.add_column("Risiko", style="red")
 
@@ -296,7 +285,7 @@ def risiko_kekurangan_berat_badan():
 
     console.print(table)
 
-    # Paragraf penutup
+    # Anjuran
     kir = Text()
     kir.append("Dalam beberapa kasus, ", style="")
     kir.append("kekurangan berat badan", style="bold red")
@@ -306,21 +295,20 @@ def risiko_kekurangan_berat_badan():
     kir.append("dokter", style="yellow")
     kir.append(" sesegera mungkin.\n")
 
-    console.print(Panel(kir, title="🩺 Penutup", expand=False, border_style="bright_red"))
+    console.print(Panel(kir, title="🩺 Kesimpulan & Anjuran", expand=False, border_style="bright_red"))
     console.rule("[bold green]Selesai")
-
 def kalkulator_bmi():
     while True:
         os.system("cls")
 
-        # Header Panel
+        # Header
         console.print(Panel.fit(
             "[bold cyan]🧮 KALKULATOR BMI[/bold cyan]",
             subtitle="Pilih salah satu opsi di bawah ini",
             border_style="bright_blue"
         ))
 
-        # Menu dengan warna
+        # Menu
         console.print("[bold yellow]1.[/bold yellow] Pengenalan [cyan]BMI[/cyan]")
         console.print("[bold yellow]2.[/bold yellow] Risiko [red]kelebihan berat badan[/red]")
         console.print("[bold yellow]3.[/bold yellow] Risiko [red]kekurangan berat badan[/red]")
@@ -347,10 +335,11 @@ def kalkulator_bmi():
         console.input("\n[bold cyan]Tekan Enter untuk kembali ke menu Kalkulator BMI...[/bold cyan]")
 
 ##### KALKULATOR KALORI
+# def-def untuk hitung kalori
 def input_data():
     console.rule("[bold cyan]🔢 Masukkan Data Anda")
 
-    age = IntPrompt.ask("Umur (15 - 80 tahun)")
+    age = IntPrompt.ask("Umur")
     gender = Prompt.ask("Jenis kelamin", choices=["male", "female"])
     tinggi = FloatPrompt.ask("Tinggi badan (cm)", default=170)
     berat = FloatPrompt.ask("Berat badan (kg)", default=65)
@@ -380,11 +369,11 @@ def input_data():
 
     console.print(table)
 
-    # Penjelasan tambahan
+    # Penjelasan latihan
     console.print("\n[bold]Catatan:[/bold]")
-    console.print("• [cyan]Exercise[/cyan]: 15–30 menit aktivitas dengan detak jantung meningkat.")
-    console.print("• [cyan]Intense exercise[/cyan]: 45–120 menit aktivitas dengan detak jantung meningkat.")
-    console.print("• [cyan]Very intense exercise[/cyan]: lebih dari 2 jam aktivitas dengan detak jantung meningkat.\n")
+    console.print("• [cyan]Latihan[/cyan]: 15–30 menit aktivitas dengan detak jantung meningkat.")
+    console.print("• [cyan]Latihan intens[/cyan]: 45–120 menit aktivitas dengan detak jantung meningkat.")
+    console.print("• [cyan]Latihan sangat[/cyan]: lebih dari 2 jam aktivitas dengan detak jantung meningkat.\n")
 
     activity_code = Prompt.ask("Masukkan kode aktivitas (1–7)", choices=[str(i) for i in range(1, 8)])
     return age, gender, tinggi, berat, int(activity_code)
@@ -406,17 +395,17 @@ def faktor_aktivitas(kode):
 def tampilkan_hasil(bmr, tdee):
     console.rule("[bold green]📊 Hasil Perhitungan")
     table = Table(show_header=False)
-    table.add_row("Basal Metabolic Rate (BMR)", f"[cyan]{round(bmr, 2)}[/cyan] kalori/hari")
-    table.add_row("Total Daily Energy Expenditure (TDEE)", f"[green]{round(tdee, 2)}[/green] kalori/hari")
+    table.add_row("Basal Metabolic Rate (BMR)", f"[cyan]{round(bmr, 2)}[/cyan] kcal/hari")
+    table.add_row("Total Daily Energy Expenditure (TDEE)", f"[green]{round(tdee, 2)}[/green] kcal/hari")
     console.print(table)
-
+# def menu kalkulator kalori
 def hitung_kalori():
     age, gender, tinggi, berat, activity_code = input_data()
     bmr = hitung_bmr(age, gender, tinggi, berat)
     tdee = bmr * faktor_aktivitas(activity_code)
     tampilkan_hasil(bmr, tdee)
     simpan_riwayat_kalori(f"Kalkulator Kalori - BMR: {round(bmr, 2)} kalori, TDEE: {round(tdee, 2)} kalori")
-    # Langsung tampilkan simulasi
+    # Tampilan simulasi tujuan
     console.print("\n[bold cyan]🎯 Simulasi Tujuan[/bold cyan]")
     kalori_cutting_500 = tdee - 550
     kalori_cutting_250 = tdee - 275
@@ -462,7 +451,7 @@ def penjelasan_kalori():
 
     console.print(table)
 
-    # Catatan Akhir
+    # Kesimpulan
     console.print(Panel.fit(
         "[bold]Kesimpulan:[/bold]\n"
         "• Gunakan [cyan]BMR[/cyan] untuk tahu kebutuhan dasar tubuh.\n"
@@ -477,14 +466,14 @@ def kalkulator_kalori():
     while True:
         os.system("cls")
 
-        # Header Panel
+        # Header
         console.print(Panel.fit(
             "[bold cyan]🔥 KALKULATOR KALORI[/bold cyan]",
             subtitle="Pilih salah satu",
             border_style="bright_blue"
         ))
 
-        # Menu Pilihan
+        # Menu
         console.print("[bold yellow]1.[/bold yellow] Hitung [green]kalori harian[/green]")
         console.print("[bold yellow]2.[/bold yellow] Penjelasan [cyan]Kalori, BMR, dan TDEE[/cyan]")
         console.print("[bold yellow]0.[/bold yellow] Kembali ke menu utama")
@@ -504,7 +493,7 @@ def kalkulator_kalori():
 
         console.input("\n[bold cyan]Tekan Enter untuk kembali ke menu Kalkulator Kalori...[/bold cyan]")
 
-##### LIHAT RIWAYAT
+##### LIHAT RIWAYAT dan RESET RIWAYAT
 def tampilkan_riwayat():
     console.rule("[bold blue]📂 Riwayat Perhitungan")
     
@@ -525,8 +514,16 @@ def tampilkan_riwayat():
                 console.print(f"{i}. {line.strip()}")
     else:
         console.print("[red]Tidak ada riwayat Kalori tersimpan.[/red]")
+def reset_riwayat():
+    if os.path.exists("Riwayat_BMI.txt"):
+        with open("Riwayat_BMI.txt", "w") as f:
+            pass  # mengosongkan file
+    if os.path.exists("riwayat.txt"):
+        with open("riwayat.txt", "w") as f:
+            pass  # mengosongkan file
+    console.print("[bold green]✅ Riwayat berhasil direset![/bold green]")
 
-# Menu utama
+##### Menu utama
 def main():
     while True:
         os.system("cls")
@@ -542,6 +539,7 @@ def main():
         console.print("[bold yellow]1.[/bold yellow] Kalkulator [cyan]BMI[/cyan] (Indeks Massa Tubuh)")
         console.print("[bold yellow]2.[/bold yellow] Kalkulator [green]Kalori[/green] (BMR & TDEE)")
         console.print("[bold yellow]3.[/bold yellow] 📂 Lihat [blue]Riwayat[/blue] Penggunaan")
+        console.print("[bold yellow]4.[/bold yellow] ♻️ Reset [red]Riwayat[/red]")
         console.print("[bold yellow]0.[/bold yellow] ❌ Keluar dari program")
 
         pilihan = console.input("\n[bold]📥 Pilih kalkulator [0-3]: [/bold]")
@@ -554,6 +552,9 @@ def main():
             kalkulator_kalori()
         elif pilihan == '3':
             tampilkan_riwayat()
+            console.input("\n[bold cyan]Tekan Enter untuk kembali ke menu utama...[/bold cyan]")
+        elif pilihan == '4':
+            reset_riwayat()
             console.input("\n[bold cyan]Tekan Enter untuk kembali ke menu utama...[/bold cyan]")
         elif pilihan == '0':
             console.print("\n[bold green]👋 Terima kasih telah menggunakan Kalkulator Kesehatan! Jaga tubuhmu, jaga semangatmu![/bold green]")
